@@ -11,6 +11,9 @@ import com.ctd.slacklite.auth.model.AppUser;
 import com.ctd.slacklite.auth.repository.AuthRepository;
 import com.ctd.slacklite.auth.security.JwtUtil;
 
+import com.ctd.slacklite.util.PasswordEncoderUtil;
+
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -26,8 +29,8 @@ public class AuthService {
                 .findByUsernameAndIsActiveTrue(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        boolean passwordMatch = PasswordEncoderUtil.matches(request.getPassword(), user.getPassword());
+        if (!passwordMatch) {
             throw new RuntimeException("Invalid credentials");
         }
 
