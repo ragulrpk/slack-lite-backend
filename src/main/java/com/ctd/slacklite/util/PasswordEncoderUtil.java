@@ -63,7 +63,7 @@ public class PasswordEncoderUtil {
     // ---------------- MAIN (TEST ONLY) ----------------
     public static void main(String[] args) {
 
-        String rawPassword = "123";
+        String rawPassword = "12345";
 
         String encrypted = encryptPassword(rawPassword);
         String decrypted = decryptPassword(encrypted);
