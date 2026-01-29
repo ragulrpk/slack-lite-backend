@@ -32,9 +32,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 Claims claims = JwtUtil.validateToken(token);
 
+                Long userId = claims.get("userId", Long.class);
+                String username = claims.getSubject();
+
+                CustomUserPrincipal principal =
+                        new CustomUserPrincipal(userId, username);
+
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(
-                                claims.getSubject(),
+                                principal,
                                 null,
                                 Collections.emptyList()
                         );
