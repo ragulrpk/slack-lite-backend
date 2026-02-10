@@ -1,9 +1,10 @@
-package com.ctd.slacklite.auth.model;
+package com.ctd.slacklite.user.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "app_user_image", schema = "slack_lite_db")

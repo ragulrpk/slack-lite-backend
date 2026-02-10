@@ -2,9 +2,9 @@ package com.ctd.slacklite.auth.security;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtil {
@@ -15,11 +15,12 @@ public class JwtUtil {
 
     private static final Key KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
 
-    public static String generateToken(Long userId, String username) {
+    public static String generateToken(Long userId, String username, List<String> permissionList) {
 
         return Jwts.builder()
                 .setSubject(username)
                 .claim("userId", userId)
+                .claim("permissionList", permissionList)   // 👈 ADD ROLES HERE
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(KEY)
@@ -28,11 +29,28 @@ public class JwtUtil {
 
     public static Claims validateToken(String token) {
 
-        return Jwts.parserBuilder()
-                .setSigningKey(KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+        } catch (ExpiredJwtException e) {
+            throw new RuntimeException("JWT token is expired", e);
+
+        } catch (UnsupportedJwtException e) {
+            throw new RuntimeException("JWT token is unsupported", e);
+
+        } catch (MalformedJwtException e) {
+            throw new RuntimeException("JWT token is malformed", e);
+
+        } catch (SignatureException e) {
+            throw new RuntimeException("JWT signature validation failed", e);
+
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("JWT token is invalid", e);
+        }
     }
 
 }

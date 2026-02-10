@@ -1,11 +1,13 @@
 package com.ctd.slacklite.auth.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AppUserDTO {
+@AllArgsConstructor
+public class UserDTO {
 
     private Long userId;
     private String username;
@@ -13,6 +15,10 @@ public class AppUserDTO {
     private String mobile;
     private Boolean isActive;
     private Integer loginCount;
+
+    public UserDTO() {
+
+    }
 
     // getters and setters
 }

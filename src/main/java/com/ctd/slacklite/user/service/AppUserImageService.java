@@ -1,19 +1,18 @@
-package com.ctd.slacklite.auth.service;
+package com.ctd.slacklite.user.service;
 
-import com.ctd.slacklite.auth.model.AppUserImage;
-import com.ctd.slacklite.auth.repository.AppUserImageRepository;
+import com.ctd.slacklite.user.model.AppUserImage;
+import com.ctd.slacklite.user.repository.AppUserImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class AppUserImageService {
 
-    private final AppUserImageRepository  imageRepository;;
+    private final AppUserImageRepository imageRepository;;
 
     public void saveUploadImage(Long userId, MultipartFile file) {
         try {
