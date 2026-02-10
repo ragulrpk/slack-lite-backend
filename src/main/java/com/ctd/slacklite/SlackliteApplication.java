@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SlackliteApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SlackliteApplication.class, args);
     }
 
