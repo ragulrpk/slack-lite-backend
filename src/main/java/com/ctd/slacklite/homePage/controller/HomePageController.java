@@ -1,6 +1,6 @@
 package com.ctd.slacklite.homePage.controller;
 
-import com.ctd.slacklite.auth.security.CustomUserPrincipal;
+import com.ctd.slacklite.auth.security.CustomerUserDetails;
 import com.ctd.slacklite.homePage.dto.ChatListDTO;
 import com.ctd.slacklite.homePage.service.HomePageService;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class HomePageController {
     }
     @GetMapping("/getMyChats")
     public ResponseEntity<List<ChatListDTO>> getLoggedInUserChats(
-            @AuthenticationPrincipal CustomUserPrincipal user) {
+            @AuthenticationPrincipal CustomerUserDetails user) {
 
         List<ChatListDTO> chats=homePageService.getMyChats(user.getUserId());
         return ResponseEntity.ok(chats);
