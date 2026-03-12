@@ -18,7 +18,7 @@ public class Channel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long channelId;
 
     @Column(name = "channel_type_id")
     private Long channelTypeId;

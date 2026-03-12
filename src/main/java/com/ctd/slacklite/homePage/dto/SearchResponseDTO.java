@@ -9,5 +9,5 @@ public class SearchResponseDTO {
     private String type;
     private Long  channelId;
     private String username;
-    private boolean existing;
+    private Boolean joined;
 }

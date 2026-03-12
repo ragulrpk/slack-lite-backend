@@ -39,10 +39,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
 
             try {
-                System.out.println("---- JwtAuthenticationFilter ----");
-                System.out.println("URI    : " + request.getRequestURI());
-                System.out.println("METHOD : " + request.getMethod());
-                System.out.println("AUTH   : " + request.getHeader("Authorization"));
+//                System.out.println("---- JwtAuthenticationFilter ----");
+//                System.out.println("URI    : " + request.getRequestURI());
+//                System.out.println("METHOD : " + request.getMethod());
+//                System.out.println("AUTH   : " + request.getHeader("Authorization"));
 
 
                 // 1️⃣ Check blacklist
@@ -67,12 +67,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 .map(SimpleGrantedAuthority::new)
                                 .collect(Collectors.toList());
 
-                System.out.println("userId: " + userId);
-                System.out.println("username: " + username);
-                System.out.println("authorities: ");
-                for(int i = 0 ; i<authorities.size() ; i++){
-                    System.out.println(authorities.get(i));
-                }
+               //System.out.println("userId: " + userId);
+               // System.out.println("username: " + username);
+                //System.out.println("authorities: ");
+               // for(int i = 0 ; i<authorities.size() ; i++){
+                   // System.out.println(authorities.get(i));
+                //}
 
                 // 5️⃣ Create principal
                 CustomerUserDetails customerUserDetails = new CustomerUserDetails(userId, username, permissionList);
@@ -94,13 +94,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .setAuthentication(authentication);
 
             } catch (Exception e) {
-                System.out.println("JWT ERROR: " + e.getMessage());
+                //System.out.println("JWT ERROR: " + e.getMessage());
                 SecurityContextHolder.clearContext();
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
         }
-        System.out.println("Passing to next filter");
+        //System.out.println("Passing to next filter");
         filterChain.doFilter(request, response);
     }
 }

@@ -6,12 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Optional;
+
 import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class AppUserImageService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AppUserImageService.class);
     private final AppUserImageRepository imageRepository;;
 
     public void saveUploadImage(Long userId, MultipartFile file) {
@@ -30,9 +35,14 @@ public class AppUserImageService {
     }
 
     public AppUserImage getAppUserPhoto(Long userId) {
-        return imageRepository.findById(userId)
-                .orElseThrow(() ->
-                        new RuntimeException("Profile image not found"));
+//        return imageRepository.findById(userId)
+//                .orElseThrow(() ->
+//                        new RuntimeException("Profile image not found"));
+        Optional<AppUserImage> imageOpt = imageRepository.findById(userId);
+        if (imageOpt.isEmpty()) {
+            logger.warn("Profile image not found for userId: {}", userId);
+        }
+        return imageOpt.orElse(null);
     }
 
 }

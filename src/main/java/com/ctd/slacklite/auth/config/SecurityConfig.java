@@ -6,6 +6,7 @@ import com.ctd.slacklite.auth.security.JwtAuthenticationFilter;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -72,6 +73,10 @@ public class SecurityConfig {
 
                 // Authorization rules
                 .authorizeHttpRequests(auth -> auth
+                        // Allow all GET requests
+                        .requestMatchers(HttpMethod.GET, "/**").permitAll()
+
+                        // Specific endpoints accessible without auth
                         .requestMatchers(
                                 "/auth/login",
                                 "/auth/register",
@@ -79,6 +84,8 @@ public class SecurityConfig {
                                 "/actuator/**",
                                 "/user/profile/photo"
                         ).permitAll()
+
+                        // All other requests need authentication
                         .anyRequest().authenticated()
                 )
 

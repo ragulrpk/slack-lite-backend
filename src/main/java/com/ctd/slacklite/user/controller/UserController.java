@@ -45,13 +45,12 @@ public class UserController {
 
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getContentType())).body(image.getImage());
     }
-
     @PostMapping("/upload-image")
     public ResponseEntity<String> saveUploadImage(@RequestParam("image") MultipartFile image, Authentication authentication) {
-
         System.out.println("Image: " + image.getOriginalFilename());
         CustomerUserDetails userDetails = (CustomerUserDetails) authentication.getPrincipal();
         appUserImageService.saveUploadImage(userDetails.getUserId(), image);
         return ResponseEntity.ok("Profile image uploaded successfully");
     }
+
 }

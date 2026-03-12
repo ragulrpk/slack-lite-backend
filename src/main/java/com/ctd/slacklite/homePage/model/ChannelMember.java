@@ -11,7 +11,7 @@ import lombok.Setter;
 public class ChannelMember {
 
     @Id
-    private Long id;
+    private Long channelMemberId;
 
     @Column(name = "channel_id")
     private Long channelId;
